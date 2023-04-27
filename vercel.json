@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "vite-commerce-back-end",
   "builds": [
     {
       "src": "index.js",
