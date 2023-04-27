@@ -17,7 +17,10 @@ app.listen(port, () => {
 const mongoose = require("mongoose");
 const URI_DB = process.env.URI_DB;
 mongoose
-  .connect(URI_DB)
+  .connect(URI_DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("viteCommerce connexion DB ok"))
   .catch((error) => console.log(error));
 
