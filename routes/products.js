@@ -44,7 +44,7 @@ router
       });
     }
   })
-  .delete("/articulos/delete/:id", async (req, res) => {
+  .delete("/products/delete/:id", async (req, res) => {
     const { id } = req.params;
     try {
       const delArticle = await Article.findByIdAndDelete({
