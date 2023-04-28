@@ -47,10 +47,10 @@ router
   .delete("/products/delete/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const delArticle = await Article.findByIdAndDelete({
+      const delProduct = await Products.findByIdAndDelete({
         _id: id,
       });
-      res.status(200).json({ delArticle, message: "Deleted successfully." });
+      res.status(200).json({ delProduct, message: "Deleted successfully." });
     } catch (error) {
       res.status(404).json({
         error: true,
