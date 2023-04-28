@@ -30,6 +30,10 @@ app.use(express.json());
 // cors:
 var cors = require("cors");
 app.use(cors());
+let corsOptions = {
+  origin: "http://localhost:5173",
+  optionsSuccessStatus: 200,
+};
 
 // router:
 const productsRoutes = require("./routes/products");
