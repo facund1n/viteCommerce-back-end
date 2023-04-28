@@ -23,8 +23,8 @@ router
   .get("/products/:id", async (req, res) => {
     const { id } = req.params;
     try {
-      const product = await Products.findOne({ _id: id });
-      res.status(200).json(product);
+      const oneProduct = await Products.findOne({ _id: id });
+      res.status(200).json(oneProduct);
     } catch (error) {
       res.status(404).json({ message: error });
     }
