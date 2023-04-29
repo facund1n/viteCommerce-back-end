@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const productsSchema = new Schema({
   title: { type: String, required: true, min: 2, max: 80 },
-  description: { type: String, required: true, min: 10, max: 300 },
+  description: { type: String, required: true, min: 10, max: 500 },
   image: { type: Array, required: true },
   price: { type: Number, required: true },
   category: { type: String, required: true, min: 2, max: 80 },
