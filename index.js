@@ -38,3 +38,6 @@ app.use(cors());
 // router:
 const productsRoutes = require("./routes/products");
 app.use("/", productsRoutes);
+
+const usersRoutes = require("./routes/users");
+app.use("/", usersRoutes);
