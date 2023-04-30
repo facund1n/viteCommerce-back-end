@@ -15,7 +15,9 @@ router
     try {
       const newProduct = new Products(body);
       await newProduct.save();
-      res.status(200).json({ newProduct, message: "Uploaded successfully." });
+      res
+        .status(200)
+        .json({ newProduct, message: "Uploaded successfully. Redirecting..." });
     } catch (error) {
       res.status(400).json({ error: true, message: "Upload Error" });
     }
@@ -36,7 +38,9 @@ router
       const editProduct = await Products.findByIdAndUpdate(id, body, {
         useFindAndModify: false,
       });
-      res.status(200).json({ editProduct, message: "Edited successfully." });
+      res
+        .status(200)
+        .json({ editProduct, message: "Edited successfully. Redirecting..." });
     } catch (error) {
       res.status(404).json({
         error: true,
@@ -50,7 +54,9 @@ router
       const delProduct = await Products.findByIdAndDelete({
         _id: id,
       });
-      res.status(200).json({ delProduct, message: "Deleted successfully." });
+      res
+        .status(200)
+        .json({ delProduct, message: "Deleted successfully. Redirecting..." });
     } catch (error) {
       res.status(404).json({
         error: true,
