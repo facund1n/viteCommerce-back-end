@@ -51,7 +51,7 @@ router
       phone: body.phone,
     });
     // ver si luego separamos las validaciones,
-    if (emailAlreadyExist || phoneAlreadyExist === null) {
+    if (!emailAlreadyExist || !phoneAlreadyExist) {
       return res
         .status(404)
         .json({ error: true, message: "email o phone already registered" });
