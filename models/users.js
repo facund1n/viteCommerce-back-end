@@ -25,8 +25,8 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-    min: 8,
-    max: 30,
+    min: 6,
+    max: 20,
   },
   liked: { type: Array, required: true },
   date: {
