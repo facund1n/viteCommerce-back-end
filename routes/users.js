@@ -8,7 +8,9 @@ router
     try {
       const allUsers = Users.find();
       res.status(200).send(allUsers);
-    } catch (error) {}
+    } catch (error) {
+      res.status(404).json({ message: error });
+    }
   })
   .post("/login", async (req, res) => {
     const { body } = req;
@@ -16,7 +18,6 @@ router
     const emailMatches = await Users.findOne({ email: body.email });
 
     if (emailMatches === null) {
-      //verificar si es necesario Message.
       return res.status(404).json({ message: "incorrect email or password" });
     }
 
@@ -27,7 +28,7 @@ router
 
     const unHashEmail = await bcrypt.compare(body.email, emailMatches.email);
 
-    if (emailMatches || unHashPassword || unHashEmail === null || false) {
+    if (emailMatches || unHashPassword || unHashEmail === null) {
       return res.status(404).json({ message: "incorrect email or password" });
     } else {
       try {
@@ -71,12 +72,10 @@ router
         //ver funcionamiento luego:
         newUser.password = body.password;
 
-        res
-          .status(200)
-          .json({
-            newUser,
-            message: "Successful registration, redirecting...",
-          });
+        res.status(200).json({
+          newUser,
+          message: "Successful registration, redirecting...",
+        });
       } catch (error) {}
     }
   });
