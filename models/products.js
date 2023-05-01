@@ -8,6 +8,10 @@ const productsSchema = new Schema({
   price: { type: Number, required: true },
   category: { type: String, required: true, min: 2, max: 80 },
   stock: { type: Number, required: true },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Products = mongoose.model("products", productsSchema);

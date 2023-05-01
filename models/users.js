@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  isAdmin: {
+    type: Boolean,
+  },
   name: {
     type: String,
     required: true,
@@ -17,7 +20,7 @@ const userSchema = new Schema({
     unique: true,
   },
   phone: {
-    type: Number,
+    type: String,
     required: true,
     min: 10,
   },
@@ -27,7 +30,7 @@ const userSchema = new Schema({
     min: 6,
     max: 20,
   },
-  liked: { type: Array, required: true },
+  saved: { type: Array, required: true },
   date: {
     type: Date,
     default: Date.now,
