@@ -48,7 +48,11 @@ router
     const emailAlreadyExist = await Users.findOne({
       email: body.email,
     });
-    const unHashEmail = await bcrypt.compare(body.email, emailAlreadyExist);
+
+    const unHashEmail = await bcrypt.compare(
+      body.email,
+      emailAlreadyExist.email
+    );
 
     const phoneAlreadyExist = await Users.findOne({
       phone: body.phone,
