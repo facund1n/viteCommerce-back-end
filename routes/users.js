@@ -19,27 +19,27 @@ router
       email: body.email,
     });
 
-    if (emailMatches === null) {
-      return res.status(404).json({ message: "incorrect credentials" });
-    }
-
     const unHashPassword = await bcrypt.compare(
       body.password,
       emailMatches.password
     );
 
-    if (!emailMatches || !unHashPassword) {
-      return res.status(404).json({ message: "incorrect credentials" });
-    } else {
+    if (emailMatches && unHashPassword) {
       try {
         const jwtToken = jwt.sign(
           { id: emailMatches.id, email: emailMatches.email },
           process.env.JWT_SECRET
         );
-        res.json({ message: "Logged in, redirecting...", token: jwtToken });
+        res.json({
+          message: "Logged in, redirecting...",
+          token: jwtToken,
+          role: emailMatches.role || "user",
+        });
       } catch (error) {
         res.status(404).json({ message: error });
       }
+    } else {
+      return res.status(404).json({ message: "incorrect credentials" });
     }
   })
   .post("/register", async (req, res) => {
@@ -61,7 +61,6 @@ router
     } else {
       // bcrypt:
       const salt = await bcrypt.genSalt(6);
-
       const encryptedPassword = await bcrypt.hash(body.password, salt);
 
       try {
@@ -70,12 +69,9 @@ router
           email: body.email,
           password: encryptedPassword,
           phone: body.phone,
+          isAdmin: false,
         });
         await newUser.save();
-        //ver funcionamiento luego:
-        // newUser.password = body.password;
-        // newUser.email = body.email;
-
         res.status(200).json({
           newUser,
           message: "Successful registration, redirecting...",
