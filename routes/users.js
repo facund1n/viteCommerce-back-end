@@ -76,7 +76,9 @@ router
           newUser,
           message: "Successful registration, redirecting...",
         });
-      } catch (error) {}
+      } catch (error) {
+        res.status(404).json({ error: true, message: error });
+      }
     }
   });
 
