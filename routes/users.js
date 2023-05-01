@@ -44,14 +44,21 @@ router
   })
   .post("/register", async (req, res) => {
     const { body } = req;
+
     const emailAlreadyExist = await Users.findOne({
       email: body.email,
     });
+    const unHashEmail = await bcrypt.compare(
+      body.email,
+      emailAlreadyExist.email
+    );
+
     const phoneAlreadyExist = await Users.findOne({
       phone: body.phone,
     });
+
     // ver si luego separamos las validaciones,
-    if (emailAlreadyExist || phoneAlreadyExist) {
+    if (unHashEmail || phoneAlreadyExist) {
       return res
         .status(404)
         .json({ message: "email o phone already registered" });
