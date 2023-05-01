@@ -15,10 +15,12 @@ router
   .post("/login", async (req, res) => {
     const { body } = req;
 
-    const emailMatches = await Users.findOne({ email: body.email });
+    const emailMatches = await Users.findOne({
+      email: body.email,
+    });
 
     if (emailMatches === null) {
-      return res.status(404).json({ message: "incorrect email or password" });
+      return res.status(404).json({ message: "incorrect credentials" });
     }
 
     const unHashPassword = await bcrypt.compare(
@@ -26,10 +28,8 @@ router
       emailMatches.password
     );
 
-    const unHashEmail = await bcrypt.compare(body.email, emailMatches.email);
-
-    if (emailMatches || unHashPassword || unHashEmail === null) {
-      return res.status(404).json({ message: "incorrect email or password" });
+    if (!emailMatches || !unHashPassword) {
+      return res.status(404).json({ message: "incorrect credentials" });
     } else {
       try {
         const jwtToken = jwt.sign(
