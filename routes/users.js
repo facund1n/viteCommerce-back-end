@@ -70,8 +70,8 @@ router
         });
         await newUser.save();
         //ver funcionamiento luego:
-        // newUser.password = body.password;
-        // newUser.email = body.email;
+        newUser.password = body.password;
+        newUser.email = body.email;
 
         res.status(200).json({
           newUser,
