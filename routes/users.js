@@ -54,7 +54,7 @@ router
     if (emailAlreadyExist || phoneAlreadyExist) {
       return res
         .status(404)
-        .json({ error: true, message: "email o phone already registered" });
+        .json({ message: "email o phone already registered" });
     } else {
       // bcrypt:
       const salt = await bcrypt.genSalt(6);
@@ -78,7 +78,7 @@ router
           message: "Successful registration, redirecting...",
         });
       } catch (error) {
-        res.status(404).json({ error: true, message: error });
+        res.status(404).json({ error, message: "Operation failed." });
       }
     }
   });
