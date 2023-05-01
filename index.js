@@ -30,10 +30,6 @@ app.use(express.json());
 // cors:
 var cors = require("cors");
 app.use(cors());
-let corsOptions = {
-  origin: "*",
-  optionsSuccessStatus: 200,
-};
 
 // router:
 const productsRoutes = require("./routes/products");
