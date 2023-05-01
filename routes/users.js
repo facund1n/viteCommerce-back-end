@@ -49,37 +49,32 @@ router
       email: body.email,
     });
 
-    const unHashEmail = await bcrypt.compare(
-      body.email,
-      emailAlreadyExist.email
-    );
-
     const phoneAlreadyExist = await Users.findOne({
       phone: body.phone,
     });
 
     // ver si luego separamos las validaciones,
-    if (unHashEmail || phoneAlreadyExist) {
+    if (emailAlreadyExist || phoneAlreadyExist) {
       return res
         .status(404)
         .json({ message: "email o phone already registered" });
     } else {
       // bcrypt:
       const salt = await bcrypt.genSalt(6);
-      const encryptedEmail = await bcrypt.hash(body.email, salt);
+
       const encryptedPassword = await bcrypt.hash(body.password, salt);
 
       try {
         const newUser = new Users({
           name: body.name,
-          email: encryptedEmail,
+          email: body.email,
           password: encryptedPassword,
           phone: body.phone,
         });
         await newUser.save();
         //ver funcionamiento luego:
-        newUser.password = body.password;
-        newUser.email = body.email;
+        // newUser.password = body.password;
+        // newUser.email = body.email;
 
         res.status(200).json({
           newUser,
