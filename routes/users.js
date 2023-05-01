@@ -60,10 +60,10 @@ router
       const salt = await bcrypt.genSalt(6);
       const encryptedEmail = await bcrypt.hash(body.email, salt);
       const encryptedPassword = await bcrypt.hash(body.password, salt);
-      const encryptedPhone = await bcrypt.hash(body.phone, salt);
 
       try {
         const newUser = new Users({
+          name: body.name,
           email: encryptedEmail,
           password: encryptedPassword,
           phone: body.phone,
@@ -71,6 +71,7 @@ router
         await newUser.save();
         //ver funcionamiento luego:
         newUser.password = body.password;
+        newUser.email = body.email;
 
         res.status(200).json({
           newUser,
