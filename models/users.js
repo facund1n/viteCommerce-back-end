@@ -19,7 +19,7 @@ const userSchema = new Schema({
   phone: {
     type: Number,
     required: true,
-    max: 10,
+    min: 10,
   },
   password: {
     type: String,
