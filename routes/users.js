@@ -27,13 +27,18 @@ router
     if (emailMatches && unHashPassword) {
       try {
         const jwtToken = jwt.sign(
-          { id: emailMatches.id, email: emailMatches.email },
+          {
+            id: emailMatches._id,
+            email: emailMatches.email,
+            name: emailMatches.name,
+            phone: emailMatches.phone,
+          },
           process.env.JWT_SECRET
         );
         res.json({
           message: "Logged in, redirecting...",
+          name: emailMatches.name,
           token: jwtToken,
-          role: emailMatches.role || "user",
         });
       } catch (error) {
         res.status(404).json({ message: error });
