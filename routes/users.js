@@ -19,6 +19,10 @@ router
       email: body.email,
     });
 
+    if (emailMatches === null) {
+      return res.status(404).json({ message: "incorrect credentials" });
+    }
+
     const unHashPassword = await bcrypt.compare(
       body.password,
       emailMatches.password
