@@ -42,6 +42,7 @@ router
         res.json({
           message: "Logged in, redirecting...",
           name: emailMatches.name,
+          id: emailMatches._id,
           token: jwtToken,
         });
       } catch (error) {
