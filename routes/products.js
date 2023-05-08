@@ -19,7 +19,7 @@ router
         .status(200)
         .json({ newProduct, message: "Uploaded successfully. Redirecting..." });
     } catch (error) {
-      res.status(400).json({ error: true, message: "Upload Error" });
+      res.status(404).json({ error: true, message: "Upload Error" });
     }
   })
   .get("/products/:id", async (req, res) => {
